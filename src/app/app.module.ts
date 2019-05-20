@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { ToastrModule } from 'ngx-toastr';
         ToastrModule.forRoot()
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {
