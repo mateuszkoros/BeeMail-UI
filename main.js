@@ -5,7 +5,10 @@ const url = require("url");
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({ width: 1200, height: 900 });
+    win = new BrowserWindow({
+        width: 1200,
+        height: 900,
+        icon: __dirname + '/build/icon.png'});
     win.loadURL(
         url.format({
             pathname: path.join(__dirname, `/dist/index.html`),
