@@ -1,0 +1,75 @@
+<app-intro *ngIf="!currentAddress"></app-intro>
+
+<div class="chat-panel card card-default" *ngIf="currentAddress">
+    <div class="card-header">
+        <i class="fa fa-comments fa-fw"></i>
+        Chat
+        <div class="pull-right">
+            <i class="fa fa-refresh fa-fw clickable" (click)="refreshMails()"></i>
+        </div>
+    </div>
+    <div class="card-body">
+        <ul class="chat" #chat [scrollTop]="chat.scrollHeight">
+            <li *ngFor="let message of messages" class="clearfix">
+                <div class="chat-body clearfix" *ngIf="message.type === 'Incoming'">
+                    <div class="header">
+                        <strong class="primary-font">{{message.remoteAddress}}</strong>
+                        <small class="pull-right">
+                            <i class="fa fa-trash fa-fw clickable delete-icon" (click)="deleteMessage(message)"></i>
+                        </small>
+                        <small class="pull-right" style="margin-left: 10px">
+                            {{message.subject}}
+                        </small>
+                        <small class="pull-right" style="margin-left: 10px" *ngIf="message.attachment">
+                            [ Download attachment
+                            <i class="fa fa-download fa-fw clickable" (click)="downloadAttachment(message)"></i> ]
+                        </small>
+                        <small class="pull-right text-muted">
+                            <i class="fa fa-clock-o fa-fw"></i> {{message.timestamp.toLocaleString()}}
+                        </small>
+                    </div>
+                    <p class="message-content">
+                        {{message.message}}
+                    </p>
+                </div>
+                <div class="chat-body clearfix" *ngIf="message.type === 'Outgoing'">
+                    <div class="header">
+                        <small>
+                            <i class="fa fa-trash fa-fw clickable delete-icon" (click)="deleteMessage(message)"></i>
+                        </small>
+                        <small>
+                            {{message.subject}}
+                        </small>
+                        <small *ngIf="message.attachment">
+                            [ 1 Attachment
+                            <i class="fa fa-download fa-fw clickable"></i> ]
+                        </small>
+                        <small class="text-muted">
+                            <i class="fa fa-clock-o fa-fw"></i> {{message.timestamp.toLocaleString()}}
+                        </small>
+                    </div>
+                    <p class="message-content" style="text-align: right">
+                        {{message.message}}
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer">
+        <form #sendMessageForm (ngSubmit)="sendMessage(sendMessageForm)">
+        <div>
+            <input class="form-control input-sm message-input" id="subject-input" placeholder="  Subject" type="text" name="subject"
+                   ngModel required style="width: 30%" (keydown.enter)="$event.preventDefault()">
+            <textarea class="form-control input-sm message-input" id="message-input" placeholder="Message"
+                      type="text" name="message" ngModel required rows="3" (keyup.control.enter)="sendMessage(sendMessageForm)"></textarea>
+            <span class="input-group-btn message-input">
+                <button class="btn btn-warning btn-sm" id="btn-chat" type="submit"
+                        placement="right-bottom" ngbTooltip="You can also use Ctrl+Enter">
+                    Send
+                </button>
+                <input class="btn-sm" type="file" name="attachment" (change)="onFileChange($event)">
+            </span>
+        </div>
+        </form>
+    </div>
+</div>

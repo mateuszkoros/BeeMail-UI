@@ -1,0 +1,11 @@
+<h1 class="welcome-header">
+  Welcome to BeeMail
+</h1>
+
+<form #newAddressForm (ngSubmit)="addNewAddress(newAddressForm)"style="text-align: center">
+    <input class="form-control input-sm" id="address-input" placeholder="Address" type="text" name="address"
+           style="width: 30%; margin: auto" ngModel required>
+    <button class="btn btn-warning" id="btn-chat" type="submit">
+      Add new address
+    </button>
+</form>
