@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     messages = new Array<Message>();
     messagesSubscription: Subscription;
     attachment: string;
+    attachmentName: string;
 
     constructor(private threadChangeService: ThreadChangeService, private getMailsService: GetMailsService,
                 private sendMailService: SendMailService, private deleteMailService: DeleteMailService, private toastr: ToastrService) {
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit, OnDestroy {
                 this.displayMails(messages);
             },
                 error => {
-                    this.toastr.error(error, 'Failed to get messages');
+                    this.toastr.error(error.message, 'Failed to get messages');
                     console.log(error);
                 });
     }
@@ -50,7 +51,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     refreshMails() {
-        this.getMailsService.getAllMailsWithAddress(this.currentAddress).subscribe(messages => this.displayMails(messages));
+        this.getMailsService.getAllMailsWithAddress(this.currentAddress).subscribe(
+            messages => {
+            this.displayMails(messages);
+            this.toastr.info('Successfully refreshed messages');
+        },
+            error => {
+                this.toastr.error(error.message, 'Failed to get messages');
+                console.log(error);
+            });
     }
 
     displayMails(messages: Message[]) {
@@ -64,6 +73,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         const messageObject = {
             subject: form.subject.value,
             message: form.message.value,
+            attachment: this.attachment,
+            attachmentname: this.attachmentName,
             remoteaddress: this.currentAddress
         };
         const newMessage = new Message(messageObject);
@@ -81,7 +92,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             }
         },
             error => {
-                this.toastr.error(error, 'Failed to send message');
+                this.toastr.error(error.message, 'Failed to send message');
                 console.log(error);
             });
     }
@@ -100,7 +111,7 @@ export class ChatComponent implements OnInit, OnDestroy {
                 }
             },
             error => {
-                this.toastr.error(error, 'Failed to delete message');
+                this.toastr.error(error.message, 'Failed to delete message');
                 console.log(error);
             }
         );
@@ -113,8 +124,11 @@ export class ChatComponent implements OnInit, OnDestroy {
             reader.readAsDataURL(file);
             reader.onload = () => {
                 this.attachment = reader.result.toString().split(',')[1];
-                console.log(this.attachment);
+                this.attachmentName = file.name;
             };
+        } else {
+            this.attachment = '';
+            this.attachmentName = '';
         }
     }
 

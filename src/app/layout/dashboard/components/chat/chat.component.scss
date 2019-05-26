@@ -46,9 +46,11 @@
 
   .clickable:hover {
     cursor: pointer;
+    color: darkgoldenrod;
   }
 
   .delete-icon:hover {
+    @extend .clickable;
     color: crimson;
   }
 

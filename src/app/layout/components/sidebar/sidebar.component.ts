@@ -42,7 +42,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.getAddressesService.getAllAddresses().subscribe(
             addresses => this.addresses = addresses,
             err => {
-                this.toastr.error(err, 'Failed to get addresses');
+                this.toastr.error(err.message, 'Failed to get addresses');
                 console.log(err);
             }
         );

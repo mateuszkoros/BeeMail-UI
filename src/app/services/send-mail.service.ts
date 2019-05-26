@@ -18,6 +18,8 @@ export class SendMailService {
     toSend.append('Subject', message.subject);
     toSend.append('Message', message.message);
     toSend.append('Destination', message.remoteAddress);
+    toSend.append('Attachment', message.attachment);
+    toSend.append('AttachmentName', message.attachmentName);
     return this.http.post<BackendResponse>(environment.sendMessageUrl, toSend)
         .pipe(
             catchError(this.handleError)
