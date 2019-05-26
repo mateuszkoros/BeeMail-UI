@@ -74,6 +74,7 @@ export class ChatComponent implements OnInit, OnDestroy {
                 newMessage.timestamp = new Date();
                 newMessage.message = newMessage.message.trim();
                 this.messages = this.messages.concat(newMessage);
+                form.reset();
             } else {
                 this.toastr.error(response.response, 'Failed to send message');
                 console.log(response);
