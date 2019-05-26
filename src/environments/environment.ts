@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const backendUrl = 'https://localhost:1944/';
+const backendUrl = 'https://127.0.0.1:1944/';
 
 export const environment = {
     production: false,

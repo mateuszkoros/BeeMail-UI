@@ -10,40 +10,6 @@
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{address}}</span>
         </a>
-        <div class="header-fields">
-            <a (click)="rltAndLtr()" class="list-group-item">
-                <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
-            </a>
-            <div class="nested-menu">
-                <a (click)="addExpandClass('profile')" class="list-group-item">
-                    <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
-                </a>
-                <li [class.expand]="showMenu === 'profile'" class="nested">
-                    <ul class="submenu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a (click)="onLoggedout()" [routerLink]="['/login']">
-                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' }}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </div>
-        </div>
     </div>
     <div (click)="toggleCollapsed()" [ngClass]="{collapsed: collapsed}" class="toggle-button">
         <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
