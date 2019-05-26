@@ -21,10 +21,8 @@ function createWindow() {
     });
 }
 
-app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
-    event.preventDefault();
-    callback(true);
-});
+app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
+app.commandLine.appendSwitch('allow-insecure-localhost', 'true');
 
 app.on("ready", createWindow);
 
