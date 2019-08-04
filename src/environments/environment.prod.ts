@@ -1,4 +1,4 @@
-const backendUrl = 'https://127.0.0.1:1944/';
+const backendUrl = 'https://localhost:1944/';
 
 export const environment = {
     production: true,
